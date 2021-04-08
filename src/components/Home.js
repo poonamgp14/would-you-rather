@@ -10,8 +10,8 @@ import Nav from 'react-bootstrap/Nav'
 class Home extends Component {
 
     handleSelect(eventKey){
-        // alert(`selected ${eventKey}`);
-        console.log(this.props)
+        console.log(eventKey)
+        console.log('this is:', this);
         this.props.questionType = eventKey.toLowerCase();
         // dispatch(this.props.unansweredQuestIds)
     }
@@ -21,7 +21,7 @@ class Home extends Component {
             <Container>
                 <Row className="d-flex justify-content-center"><h1>Questions</h1></Row>
                 <Row className="d-flex justify-content-center">
-                    <Nav variant="tabs" defaultActiveKey="/answered" onSelect={this.handleSelect}>
+                    <Nav variant="tabs" defaultActiveKey="/answered" onSelect={(eventKey)=>this.handleSelect(eventKey)}>
                         <Nav.Item>
                             <Nav.Link eventKey="answered">Answered</Nav.Link>
                         </Nav.Item>
