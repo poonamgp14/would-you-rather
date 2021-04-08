@@ -10,8 +10,10 @@ import Nav from 'react-bootstrap/Nav'
 class Home extends Component {
 
     handleSelect(eventKey){
-        alert(`selected ${eventKey}`);
-        dispatch(this.props.unansweredQuestIds)
+        // alert(`selected ${eventKey}`);
+        console.log(this.props)
+        this.props.questionType = eventKey.toLowerCase();
+        // dispatch(this.props.unansweredQuestIds)
     }
 
     render(){
@@ -29,7 +31,7 @@ class Home extends Component {
                     </Nav>
                 </Row>
                 <div className='questions-list'>
-                    {this.props.answeredQuestIds.map((id) => (
+                    {this.props.questionIds.map((id) => (
                         <Col key={id} className="d-flex justify-content-center">
                             <Question id = {id}/>
                         </Col>
@@ -40,16 +42,22 @@ class Home extends Component {
     }
 }
 
-function mapStateToProps({questions, users, authedUser}){
-    let answeredQuestions = { };
+function mapStateToProps({questions, users, authedUser},{questionType}){
+    let questionIds = { };
+    let answeredQuestions = {};
     (Object.keys(authedUser).length !== 0) && (Object.keys(users).length !== 0) 
     ? answeredQuestions = Object.keys(users[authedUser.id]['answers']) : answeredQuestions = { } ;
 
-    return {
-        answeredQuestIds: Object.keys(questions).filter(item => answeredQuestions.includes(item))
-            .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
-        unansweredQuestIds: Object.keys(questions).filter(item => !answeredQuestions.includes(item))
+    if (questionType.toLowerCase() === 'answered'){
+        questionIds = Object.keys(questions).filter(item => answeredQuestions.includes(item))
         .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+    }else{
+        questionIds = Object.keys(questions).filter(item => !answeredQuestions.includes(item))
+        .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+    }
+
+    return {
+        questionIds: questionIds
     }
 }
 
