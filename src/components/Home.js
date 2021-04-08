@@ -11,6 +11,7 @@ class Home extends Component {
 
     handleSelect(eventKey){
         alert(`selected ${eventKey}`);
+        dispatch(this.props.unansweredQuestIds)
     }
 
     render(){
@@ -41,19 +42,14 @@ class Home extends Component {
 
 function mapStateToProps({questions, users, authedUser}){
     let answeredQuestions = { };
-    console.log(authedUser)
-    console.log(users)
-    console.log(questions)
-    // if ((Object.keys(authedUser).length !== 0) && (Object.keys(users).length !== 0)){
-    //     answeredQuestions = Object.keys(users[authedUser]['answers']) 
-    // }
-    // (authedUser) && (Object.keys(users).length !== 0) ? answeredQuestions = Object.keys(users[authedUser]['answers']) : null ;
+    (Object.keys(authedUser).length !== 0) && (Object.keys(users).length !== 0) 
+    ? answeredQuestions = Object.keys(users[authedUser.id]['answers']) : answeredQuestions = { } ;
 
     return {
-        // answeredQuestIds: Object.keys(questions).filter(item => answeredQuestions.includes(item.id))
-        //     .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
-            answeredQuestIds: Object.keys(questions)
-            .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+        answeredQuestIds: Object.keys(questions).filter(item => answeredQuestions.includes(item))
+            .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
+        unansweredQuestIds: Object.keys(questions).filter(item => !answeredQuestions.includes(item))
+        .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
     }
 }
 
