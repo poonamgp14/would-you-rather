@@ -1,9 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getInitialData } from '../actions/shared'
 import Home from './Home'
+import QuestionPage from './QuestionPage'
+import NewQuestion from './newQuestion'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoadingBar from 'react-redux-loading';
+import Nav from './Nav'
+import Question from './Question'
 
 class App extends Component {
   componentDidMount(){
@@ -11,10 +16,22 @@ class App extends Component {
   }
   render(){
     return (
-      <div>
-        <LoadingBar/>
-        {this.props.loading === true ? null : <Home questionType='answered'/> }
-      </div>
+        <Router>
+          <Fragment>
+            <LoadingBar/>
+              <div className="container">
+              <Nav/>
+                {this.props.loading === true
+                  ? null 
+                  :  <div>
+                        <Route path="/" exact component={Home}/>
+                        <Route path="/question/:id" component={QuestionPage}/>
+                        <Route path="/new" component={NewQuestion}/>
+                      </div>
+                }
+          </div>
+          </Fragment>
+        </Router>
     );
   }
 }

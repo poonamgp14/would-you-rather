@@ -24,7 +24,7 @@ let users = {
     johndoe: {
       id: 'johndoe',
       name: 'John Doe',
-      avatarURL: '',
+      avatarURL: 'api.jpeg',
       answers: {
         "xj352vofupe1dqz9emx13r": 'optionOne',
         "vthrdm985a262al8qx3do": 'optionTwo',
@@ -131,18 +131,18 @@ let users = {
     })
   }
   
-  function formatQuestion ({ optionOneText, optionTwoText, author }) {
+  function formatQuestion ({ optionOne, optionTwo, author }) {
     return {
       id: generateUID(),
       timestamp: Date.now(),
       author,
       optionOne: {
         votes: [],
-        text: optionOneText,
+        text: optionOne,
       },
       optionTwo: {
         votes: [],
-        text: optionTwoText,
+        text: optionTwo,
       }
     }
   }

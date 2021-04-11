@@ -8,12 +8,27 @@ import Nav from 'react-bootstrap/Nav'
 
 
 class Home extends Component {
+    defaultType = 'unanswered';
+    constructor(props) {
+        super(props);
+        let unAnsweredQuestionIds = this.getQuestionIds(this.defaultType)
+        this.state = { questionType: this.defaultType, questionIds: unAnsweredQuestionIds };
+        this.handleSelect = this.handleSelect.bind(this);
+      }
 
     handleSelect(eventKey){
-        console.log(eventKey)
-        console.log('this is:', this);
-        this.props.questionType = eventKey.toLowerCase();
-        // dispatch(this.props.unansweredQuestIds)
+        let answeredQuestionIds = this.getQuestionIds(eventKey.toLowerCase())
+        this.setState({ questionType: eventKey.toLowerCase(), questionIds: answeredQuestionIds });
+    }
+
+    getQuestionIds(quesType){
+        if (quesType === this.defaultType){
+            return Object.keys(this.props.questions).filter(item => !this.props.answeredQuestions.includes(item))
+            .sort((a,b) => this.props.questions[b].timestamp - this.props.questions[a].timestamp)
+        }else{
+            return Object.keys(this.props.questions).filter(item => this.props.answeredQuestions.includes(item))
+            .sort((a,b) => this.props.questions[b].timestamp - this.props.questions[a].timestamp)
+        }
     }
 
     render(){
@@ -21,17 +36,17 @@ class Home extends Component {
             <Container>
                 <Row className="d-flex justify-content-center"><h1>Questions</h1></Row>
                 <Row className="d-flex justify-content-center">
-                    <Nav variant="tabs" defaultActiveKey="/answered" onSelect={(eventKey)=>this.handleSelect(eventKey)}>
+                    <Nav variant="tabs" defaultActiveKey={this.state.questionType} onSelect={this.handleSelect}>
                         <Nav.Item>
-                            <Nav.Link eventKey="answered">Answered</Nav.Link>
+                            <Nav.Link eventKey="unanswered">Unanswered</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="Unanswered">Unanswered</Nav.Link>
+                            <Nav.Link eventKey="answered">Answered</Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Row>
                 <div className='questions-list'>
-                    {this.props.questionIds.map((id) => (
+                    {this.state.questionIds.map((id) => (
                         <Col key={id} className="d-flex justify-content-center">
                             <Question id = {id}/>
                         </Col>
@@ -42,22 +57,14 @@ class Home extends Component {
     }
 }
 
-function mapStateToProps({questions, users, authedUser},{questionType}){
-    let questionIds = { };
-    let answeredQuestions = {};
+function mapStateToProps({questions, users, authedUser}){
+    let answeredQuestions = { };
     (Object.keys(authedUser).length !== 0) && (Object.keys(users).length !== 0) 
     ? answeredQuestions = Object.keys(users[authedUser.id]['answers']) : answeredQuestions = { } ;
 
-    if (questionType.toLowerCase() === 'answered'){
-        questionIds = Object.keys(questions).filter(item => answeredQuestions.includes(item))
-        .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
-    }else{
-        questionIds = Object.keys(questions).filter(item => !answeredQuestions.includes(item))
-        .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
-    }
-
     return {
-        questionIds: questionIds
+        answeredQuestions,
+        questions,
     }
 }
 

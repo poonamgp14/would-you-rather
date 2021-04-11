@@ -7,7 +7,7 @@ import Badge from 'react-bootstrap/Badge'
 
 class Question extends Component {
     render(){
-        console.log(this.props.question)
+        // console.log(this.props.question)
         return (
             <Card style={{ width: '50%' }}>
                 <Card.Header>{this.props.question['author']} asks</Card.Header>
