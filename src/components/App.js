@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoadingBar from 'react-redux-loading';
 import Nav from './Nav'
 import Question from './Question'
+import Answer from './Answer';
 
 class App extends Component {
   componentDidMount(){
@@ -27,6 +28,7 @@ class App extends Component {
                         <Route path="/" exact component={Home}/>
                         <Route path="/question/:id" component={QuestionPage}/>
                         <Route path="/new" component={NewQuestion}/>
+                        <Route path="/answer/:id/" exact component={Answer}/>
                       </div>
                 }
           </div>

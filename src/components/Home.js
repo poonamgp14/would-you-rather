@@ -17,8 +17,8 @@ class Home extends Component {
       }
 
     handleSelect(eventKey){
-        let answeredQuestionIds = this.getQuestionIds(eventKey.toLowerCase())
-        this.setState({ questionType: eventKey.toLowerCase(), questionIds: answeredQuestionIds });
+        let questionIds = this.getQuestionIds(eventKey.toLowerCase())
+        this.setState({ questionType: eventKey.toLowerCase(), questionIds: questionIds });
     }
 
     getQuestionIds(quesType){
@@ -48,7 +48,7 @@ class Home extends Component {
                 <div className='questions-list'>
                     {this.state.questionIds.map((id) => (
                         <Col key={id} className="d-flex justify-content-center">
-                            <Question id = {id}/>
+                            <Question id = {id} type={this.state.questionType}/>
                         </Col>
                     ))}
                 </div>

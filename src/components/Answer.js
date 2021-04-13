@@ -8,77 +8,62 @@ import Col from 'react-bootstrap/Col'
 import { Container } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
-import { handleAddQuestion } from '../actions/questions';
+import { handleAddAnswer } from '../actions/questions';
 
-class NewQuestion extends Component {
+class Answer extends Component {
     optionOneName = 'optionOne';
     optionTwoName = 'optionTwo'
-    state = {
-        [this.optionOneName]: '',
-        [this.optionTwoName]: '',
-        redirect: false
-    }
+    options = [{
+        label: this.props.optionOneText.toUpperCase(),
+        value: this.optionOneName
+    },{
+        label: this.props.optionTwoText.toUpperCase(),
+        value: this.optionTwoName
+    }]
+    state = {answer: '', redirec: false}
     handleChange = (e) => {
-        // console.log(e)
-        console.log(e.target.name)
         console.log(e.target.value)
-        // const answer = e.target.value;
-        this.setState(()=> ({
-            [e.target.name] : e.target.value
-        }))
-        // console.log(this.setState[this.optionOneName]);
+        this.setState(()=> ({answer : e.target.value}))
     };
 
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log('New answer: ', this.state.optionTwo)
         const { dispatch } = this.props;
-        dispatch(handleAddQuestion(this.state.optionOne, this.state.optionTwo))
+        dispatch(handleAddAnswer(this.state.answer, this.props.id))
         this.setState(() => ({
-            [this.optionOneName]: '',
-            [this.optionTwoName]: '',
+            answer : '',
             redirect: true
         }))
     }
 
     render(){
-        // {/* todo: Redirect to home if submitted */}
         const { redirect } = this.state
+        const id = this.props.id;
+        console.log(id)
         if (redirect === true){
-            console.log(this.state.redirect)
-            return <Redirect to='/' />
+            return <Redirect to={`/question/${id}`} />
         }
         return (
             <Container className="d-flex justify-content-center">
             <div >
-                <Row className="d-flex justify-content-center"><h2>Ask a New Question</h2></Row>
+                <Row className="d-flex justify-content-center"><h2>Answer the Question</h2></Row>
                 <div>
                     <Row className="d-flex justify-content-center"><h5>Would you rather?</h5></Row>
                     <div>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Row>
                                 <Col>
-                                    <Form.Control
-                                        type="text"
-                                        name={this.optionOneName}
-                                        value={this.state.optionOne}
-                                        onChange={this.handleChange}
-                                        placeholder="Enter Option One"
-                                    />
-                                </Col>
-                                <Col>
-                                    <Form.Control
-                                        type="text"
-                                        name={this.optionTwoName}
-                                        value={this.state.optionTwo}
-                                        onChange={this.handleChange} 
-                                        placeholder="Enter Option Two" />
+                                <select value={this.state.answer} onChange={this.handleChange}>
+                                    {this.options.map((option) => (
+                                    <option value={option.value}>{option.label}</option>
+                                    ))}
+                                </select>
                                 </Col>
                             </Form.Row>
                             <div>
                                 <Row className="d-flex justify-content-center">
                                     <Button variant="primary" type="submit" 
-                                        disabled={this.state.optionOne === '' && this.state.optionTwo === ''}>Submit
+                                        disabled={this.state.answer === ''}>Submit
                                     </Button>
                                 </Row>
                             </div>
@@ -91,9 +76,18 @@ class NewQuestion extends Component {
     }
 }
 
+function mapStateToProps({authedUser, questions, users}, props){
+    const { id } = props.match.params;
+
+    return {
+        id,
+        optionOneText : questions[id]['optionOne']['text'],
+        optionTwoText : questions[id]['optionTwo']['text'],
+    }
+}
 
 // What happens when someone clicks “Submit” to add a new question? The New quest Component will need to 
 // communicate with our store. We communicate with the store by dispatching actions. dispatch is a method 
 // on the store. That means that the New question Component needs to be connect()ed to Redux. Once a component 
 // is connected to the store, it will have dispatch on its props
-export default connect()(NewQuestion)
+export default connect(mapStateToProps)(Answer)

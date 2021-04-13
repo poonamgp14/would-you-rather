@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import CardDeck from 'react-bootstrap/CardDeck'
 import Card from 'react-bootstrap/Card'
 import ProgressBar from 'react-bootstrap/ProgressBar'
-// import ProgressBar from "@ramonak/react-progress-bar";
 
 
 class QuestionPage extends Component{
@@ -11,8 +10,6 @@ class QuestionPage extends Component{
     optionOnePercent = (100 * this.props.question['optionOne']['votes'].length) / this.totalVotes;
     optionTwoPercent = (100 * this.props.question['optionTwo']['votes'].length) / this.totalVotes;
     render(){
-        console.log(this.optionOnePercent)
-        console.log(this.optionTwoPercent)
         return  (
             <CardDeck>
                 <Card>
@@ -52,8 +49,9 @@ class QuestionPage extends Component{
     }
 }
 
-function mapStateToProps({authedUser, questions, users}, props){
+function mapStateToProps({questions, users}, props){
     const { id } = props.match.params;
+    console.log(questions[id])
     let avatar = users[questions[id]['author']]['avatarURL']
     console.log(avatar)
 
