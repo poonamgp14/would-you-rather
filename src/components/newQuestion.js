@@ -46,7 +46,7 @@ class NewQuestion extends Component {
         const { redirect } = this.state
         if (redirect === true){
             console.log(this.state.redirect)
-            return <Redirect to='/' />
+            return <Redirect to='/home' />
         }
         return (
             <Container className="d-flex justify-content-center">

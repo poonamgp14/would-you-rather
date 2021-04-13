@@ -6,10 +6,13 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 
 class QuestionPage extends Component{
-    totalVotes = this.props.question['optionOne']['votes'].length + this.props.question['optionTwo']['votes'].length;
-    optionOnePercent = (100 * this.props.question['optionOne']['votes'].length) / this.totalVotes;
-    optionTwoPercent = (100 * this.props.question['optionTwo']['votes'].length) / this.totalVotes;
+
     render(){
+        let totalVotes = this.props.question['optionOne']['votes'].length + this.props.question['optionTwo']['votes'].length;
+        let optionOnePercent = (100 * this.props.question['optionOne']['votes'].length) / totalVotes;
+        let optionTwoPercent = (100 * this.props.question['optionTwo']['votes'].length) / totalVotes;
+        console.log(optionOnePercent)
+        console.log(totalVotes)
         return  (
             <CardDeck>
                 <Card>
@@ -22,12 +25,12 @@ class QuestionPage extends Component{
                     <Card.Body>
                     <Card.Title>Would you rather be &nbsp; <i>{this.props.question['optionOne']['text']}</i> </Card.Title>
                     <Card.Text>
-                        <ProgressBar now={this.optionOnePercent} label={`${this.optionOnePercent}%`} />
+                        <ProgressBar now={optionOnePercent} label={`${optionOnePercent}%`} />
                     </Card.Text>
                     </Card.Body>
                     <Card.Footer>
                     <small className="text-muted">
-                        {this.props.question['optionOne']['votes'].length} of {this.totalVotes}
+                        {this.props.question['optionOne']['votes'].length} of {totalVotes}
                     </small>
                     </Card.Footer>
                 </Card>
@@ -35,12 +38,12 @@ class QuestionPage extends Component{
                     <Card.Body>
                     <Card.Title>Would you rather be &nbsp; <i> {this.props.question['optionTwo']['text']}</i> </Card.Title>
                     <Card.Text>
-                        <ProgressBar now={this.optionTwoPercent} label={`${this.optionTwoPercent}%`} />
+                        <ProgressBar now={optionTwoPercent} label={`${optionTwoPercent}%`} />
                     </Card.Text>
                     </Card.Body>
                     <Card.Footer>
                     <small className="text-muted">
-                        {this.props.question['optionTwo']['votes'].length} of {this.totalVotes}
+                        {this.props.question['optionTwo']['votes'].length} of {totalVotes}
                     </small>
                     </Card.Footer>
                 </Card>

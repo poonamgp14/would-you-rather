@@ -8,9 +8,7 @@ import { Link, withRouter } from 'react-router-dom'
 
 class Question extends Component {
     render(){
-        // console.log(this.props.question)
         return (
-            // <Link to={`/question/${this.props.id}`}>
                 <Card style={{ width: '50%' }}>
                     <Card.Header>{this.props.question['author']} asks</Card.Header>
                     <Card.Body>

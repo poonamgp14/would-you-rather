@@ -6,9 +6,6 @@ import { setAuthedUser } from '../actions/authedUser';
 // actions creators this package already gave us
 import {showLoading, hideLoading } from 'react-redux-loading'
 
-// TODO: SET ACTUAL AUTHED ID
-const AUHTED_ID = 'sarahedo'
-
 // action creator
 export function getInitialData(){
     return (dispatch) => {
@@ -18,7 +15,6 @@ export function getInitialData(){
             console.log(values);
             dispatch(receiveUsers(values[1]))
             dispatch(receiveQuestions(values[0]))
-            dispatch(setAuthedUser(AUHTED_ID))
             dispatch(hideLoading())
         })
     }

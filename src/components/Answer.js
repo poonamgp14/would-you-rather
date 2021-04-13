@@ -45,7 +45,7 @@ class Answer extends Component {
         }
         return (
             <Container className="d-flex justify-content-center">
-            <div >
+            <div>
                 <Row className="d-flex justify-content-center"><h2>Answer the Question</h2></Row>
                 <div>
                     <Row className="d-flex justify-content-center"><h5>Would you rather?</h5></Row>

@@ -7,29 +7,32 @@ import QuestionPage from './QuestionPage'
 import NewQuestion from './newQuestion'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoadingBar from 'react-redux-loading';
-import Nav from './Nav'
+import NavBar from './Nav'
 import Question from './Question'
 import Answer from './Answer';
+import Login from './Login'
 
 class App extends Component {
   componentDidMount(){
     this.props.dispatch(getInitialData())
   }
   render(){
+    console.log(this.props.loading)
     return (
         <Router>
           <Fragment>
             <LoadingBar/>
+            <Route path="/" exact component={Login}/>
               <div className="container">
-              <Nav/>
                 {this.props.loading === true
                   ? null 
-                  :  <div>
-                        <Route path="/" exact component={Home}/>
-                        <Route path="/question/:id" component={QuestionPage}/>
-                        <Route path="/new" component={NewQuestion}/>
-                        <Route path="/answer/:id/" exact component={Answer}/>
-                      </div>
+                  : <div>
+                      <NavBar/>
+                      <Route path="/home" exact component={Home}/>
+                      <Route path="/question/:id" component={QuestionPage}/>
+                      <Route path="/new" component={NewQuestion}/>
+                      <Route path="/answer/:id/" exact component={Answer}/>
+                    </div>
                 }
           </div>
           </Fragment>

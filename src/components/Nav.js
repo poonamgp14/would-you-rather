@@ -1,21 +1,43 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import Nav from 'react-bootstrap/Nav'
+import { connect } from 'react-redux';
 
-export default function Nav () {
-  return (
-    <nav className='nav'>
-      <ul>
-        <li>
-          <NavLink to='/' exact activeClassName='active'>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/new' activeClassName='active'>
-            New Question
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
-  )
-} 
+class NavBar extends Component {
+  render(){
+    console.log(this.props)
+    return (
+      <div>
+            <Nav defaultActiveKey="/home" as="ul">
+              <Nav.Item as="li">
+                <Nav.Link href="/home">Home</Nav.Link>
+              </Nav.Item>
+              <Nav.Item as="li">
+                <Nav.Link href="/new">New Question</Nav.Link>
+              </Nav.Item>
+              <Nav.Item as="li">
+                <Nav.Link href="/leaderboard">LeaderBoard</Nav.Link>
+              </Nav.Item>
+            </Nav>
+            
+            <Nav className="justify-content-end">
+              <Nav.Item>
+                <Nav.Link>Hello {this.props.user}!</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="logout">Logout</Nav.Link>
+              </Nav.Item>
+            </Nav>
+            </div>
+    )
+  }
+}
+
+function mapStateToProps({authedUser}){
+  // const question = questions[props.id]
+  return {
+      user: authedUser.id
+  }
+}
+
+export default connect(mapStateToProps)(NavBar)
