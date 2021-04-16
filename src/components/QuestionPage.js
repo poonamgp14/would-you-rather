@@ -8,11 +8,12 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 class QuestionPage extends Component{
 
     render(){
+        if (!this.props.question.hasOwnProperty('id')){
+            return <h2>No match found for the question {this.props.id}</h2>
+        }
         let totalVotes = this.props.question['optionOne']['votes'].length + this.props.question['optionTwo']['votes'].length;
         let optionOnePercent = (100 * this.props.question['optionOne']['votes'].length) / totalVotes;
         let optionTwoPercent = (100 * this.props.question['optionTwo']['votes'].length) / totalVotes;
-        console.log(optionOnePercent)
-        console.log(totalVotes)
         return  (
             <CardDeck>
                 <Card>
@@ -61,6 +62,7 @@ function mapStateToProps({questions, users}, props){
     return {
         question: questions[id],
         avatar,
+        id
     }
 }
 

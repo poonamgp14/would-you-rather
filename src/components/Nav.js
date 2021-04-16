@@ -25,7 +25,7 @@ class NavBar extends Component {
                 <Nav.Link>Hello {this.props.user}!</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="logout">Logout</Nav.Link>
+              <Nav.Link as={NavLink} to='/logout'>Logout</Nav.Link>
               </Nav.Item>
             </Nav>
             </div>
