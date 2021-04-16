@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getInitialData } from '../actions/shared'
 import Home from './Home'
@@ -11,6 +11,13 @@ import NavBar from './Nav'
 import Question from './Question'
 import Answer from './Answer';
 import Login from './Login'
+import LeaderBoard from './LeaderBoard'
+
+const Page404 = ({ location }) => (
+  <div>
+    <h2>No match found for <code>{location.pathname}</code></h2>
+  </div>
+);
 
 class App extends Component {
   componentDidMount(){
@@ -22,16 +29,20 @@ class App extends Component {
         <Router>
           <Fragment>
             <LoadingBar/>
-            <Route path="/" exact component={Login}/>
+            <Switch>
+              <Route path="/" component={Login}/>
+              <Route component={Page404} />
+            </Switch>
               <div className="container">
                 {this.props.loading === true
                   ? null 
                   : <div>
                       <NavBar/>
-                      <Route path="/home" exact component={Home}/>
+                      <Route path="/home" component={Home}/>
                       <Route path="/question/:id" component={QuestionPage}/>
                       <Route path="/new" component={NewQuestion}/>
-                      <Route path="/answer/:id/" exact component={Answer}/>
+                      <Route path="/answer/:id/" component={Answer}/>
+                      <Route path="/leaderboard" component={LeaderBoard}/>
                     </div>
                 }
           </div>

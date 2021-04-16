@@ -11,7 +11,10 @@ import Col from 'react-bootstrap/Col'
 
 
 class Login extends Component{
-    state = {LoginUser:'', redirect: false}
+    constructor(props){
+        super(props);
+        this.state = {LoginUser: 'Select..', redirect: false}
+    }
     handleChange = (e) => {
         console.log(e.target.value)
         this.setState(()=> ({LoginUser : e.target.value}))

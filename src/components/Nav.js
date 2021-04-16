@@ -10,13 +10,13 @@ class NavBar extends Component {
       <div>
             <Nav defaultActiveKey="/home" as="ul">
               <Nav.Item as="li">
-                <Nav.Link href="/home">Home</Nav.Link>
+              <Nav.Link as={NavLink} to='/home'>Home</Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
-                <Nav.Link href="/new">New Question</Nav.Link>
+              <Nav.Link as={NavLink} to='/new'>New Question</Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
-                <Nav.Link href="/leaderboard">LeaderBoard</Nav.Link>
+              <Nav.Link as={NavLink} to='/leaderboard'>LeaderBoard</Nav.Link>
               </Nav.Item>
             </Nav>
             
