@@ -30,9 +30,9 @@ class Login extends Component{
         }))
     }
     render(){
-        if (this.state.redirect === true){
-            return <Redirect to='/home' />
-        }
+        // if (this.state.redirect === true){
+        //     return <Redirect to='/home' />
+        // }
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>

@@ -11,9 +11,12 @@ import Col from 'react-bootstrap/Col'
 
 
 class Logout extends Component{
-    render(){
+    componentDidMount(){
         const { dispatch } = this.props;
         dispatch(setAuthedUserToNull(null))
+      }
+    render(){
+        
         return (
             <Redirect to='/' />
         )
