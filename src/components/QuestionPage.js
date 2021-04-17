@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import CardDeck from 'react-bootstrap/CardDeck'
 import Card from 'react-bootstrap/Card'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import Answer from './Answer'
 
 
 class QuestionPage extends Component{
@@ -14,6 +15,11 @@ class QuestionPage extends Component{
         let totalVotes = this.props.question['optionOne']['votes'].length + this.props.question['optionTwo']['votes'].length;
         let optionOnePercent = (100 * this.props.question['optionOne']['votes'].length) / totalVotes;
         let optionTwoPercent = (100 * this.props.question['optionTwo']['votes'].length) / totalVotes;
+        console.log(this.props)
+        if (this.props.ifAnswered === false){
+            console.log('yes i will display submit answer')
+            return <Answer id={this.props.id}/>
+        }
         return  (
             <CardDeck>
                 <Card>
@@ -53,16 +59,19 @@ class QuestionPage extends Component{
     }
 }
 
-function mapStateToProps({questions, users}, props){
+function mapStateToProps({questions, users,authedUser}, props){
     const { id } = props.match.params;
     console.log(questions[id])
     let avatar = users[questions[id]['author']]['avatarURL']
     console.log(avatar)
+    // const { ifAnswered } = Object.keys(users[authedUser.id]['answers']).includes(id)
+    console.log(Object.keys(users[authedUser.id]['answers']).includes(id))
 
     return {
         question: questions[id],
         avatar,
-        id
+        id,
+        ifAnswered: Object.keys(users[authedUser.id]['answers']).includes(id),
     }
 }
 

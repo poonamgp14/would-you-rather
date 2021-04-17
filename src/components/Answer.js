@@ -77,12 +77,11 @@ class Answer extends Component {
 }
 
 function mapStateToProps({authedUser, questions, users}, props){
-    const { id } = props.match.params;
 
     return {
-        id,
-        optionOneText : questions[id]['optionOne']['text'],
-        optionTwoText : questions[id]['optionTwo']['text'],
+        id: props.id,
+        optionOneText : questions[props.id]['optionOne']['text'],
+        optionTwoText : questions[props.id]['optionTwo']['text'],
     }
 }
 

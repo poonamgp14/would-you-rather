@@ -8,6 +8,11 @@ import { Link, withRouter } from 'react-router-dom'
 
 class Question extends Component {
     render(){
+        let answer = '';
+        if (this.props.answers.hasOwnProperty(this.props.id) ){
+            answer = this.props.answers[this.props.id]
+        }
+        
         return (
                 <Card style={{ width: '50%' }}>
                     <Card.Header>{this.props.question['author']} asks</Card.Header>
@@ -16,6 +21,7 @@ class Question extends Component {
                         <Card.Text>
                         <Badge pill variant="primary">{this.props.question['optionOne']['text']}</Badge>{' '}
                         <Badge pill variant="success">{this.props.question['optionTwo']['text']}</Badge>
+                        {this.props.type === 'answered' ? <Badge variant="light">You Answered {this.props.question[answer]['text']}</Badge> : null}
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer className="text-muted">
@@ -23,7 +29,8 @@ class Question extends Component {
                             <Link to={`/question/${this.props.id}`}>
                                 <Button variant="primary">View Poll</Button>
                             </Link>
-                            : <Link to={`/answer/${this.props.id}`}><Button variant="primary">Submit Answer</Button></Link>
+                            : <Link to={`/question/${this.props.id}`}><Button variant="primary">Submit Answer</Button></Link>
+                            // <Link to={`/answer/${this.props.id}`}><Button variant="primary">Submit Answer</Button></Link>
                         
                     }
                     {/* <Button variant="primary">{this.props.type === 'answered' ? 'View Poll' : 'Submit Answer'}</Button> */}
@@ -44,7 +51,9 @@ function mapStateToProps({authedUser, users, questions},props){
     return {
         authedUser,
         question,
-        type: props.type
+        type: props.type,
+        answers: users[authedUser.id]['answers'],
+        id:props.id
     }
 }
 

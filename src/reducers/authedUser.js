@@ -9,8 +9,10 @@ export default function authedUser(state=null,action){
                 id: action.id
             }
         case SET_AUTHED_USER_TO_NULL:
+            console.log(state)
+            console.log(action.id)
             return {
-                ...state,
+                state:{},
                 id: action.id
             }
         default:
