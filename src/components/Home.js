@@ -58,6 +58,7 @@ class Home extends Component {
 }
 
 function mapStateToProps({questions, users, authedUser}){
+    console.log('==================================================')
     let answeredQuestions = { };
     (Object.keys(authedUser).length !== 0) && (Object.keys(users).length !== 0) 
     ? answeredQuestions = Object.keys(users[authedUser.id]['answers']) : answeredQuestions = { } ;

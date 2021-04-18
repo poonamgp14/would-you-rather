@@ -29,10 +29,15 @@ class Login extends Component{
             redirect: true
         }))
     }
+
     render(){
+        console.log(this.props.location.pathname)
+        console.log(this.state.redirect)
+        if ((this.state.redirect === true) && (this.props.location.pathname === '/')){
         // if (this.state.redirect === true){
-        //     return <Redirect to='/home' />
-        // }
+            console.log('i m rendering home component')
+            return <Redirect to='/home' />
+        }
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>
