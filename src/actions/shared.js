@@ -2,7 +2,6 @@ import { _getQuestions } from '../utils/api';
 import { _getUsers } from '../utils/api';
 import { receiveUsers } from '../actions/users';
 import { receiveQuestions } from '../actions/questions';
-import { setAuthedUser } from '../actions/authedUser';
 // actions creators this package already gave us
 import {showLoading, hideLoading } from 'react-redux-loading'
 

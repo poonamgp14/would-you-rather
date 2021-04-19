@@ -23,9 +23,11 @@ class QuestionPage extends Component{
         return  (
             <CardDeck>
                 <Card>
-                    <Card.Img variant="top" src={this.props.avatar} />
+                {/* <Card.Img variant="top" src={this.props.avatar} width="100" height="100" /> */}
+                    {/* <Card.Img variant="top" src={this.props.avatar} width="100" height="100"/> */}
                     <Card.Body>
-                    <Card.Title>{this.props.question.author} asked</Card.Title>
+                    <Card.Title><Card.Img variant="top" src={this.props.avatar} width="100" height="200" />
+                        {this.props.question.author} asked</Card.Title>
                     </Card.Body>
                 </Card>
                 <Card>

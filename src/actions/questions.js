@@ -1,7 +1,7 @@
 import {_saveQuestion} from '../utils/api'
 import { _saveQuestionAnswer } from '../utils/api'
 import { showLoading, hideLoading} from 'react-redux-loading'
-import { addAnswerToUsers } from './users'
+import { addAnswerToUsers, addQuestionToUsers } from './users'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const SET_UNANSWERED_QUESTIONS = 'SET_UNANSWERED_QUESTIONS';
@@ -30,7 +30,6 @@ export function handleAddAnswer(answer,qId){
     // to get current state of our store
     return (dispatch, getState) => {
         const { authedUser } = getState();
-        const  { user } = getState();
         // lets show loading bar before we make an asynchronous call
         dispatch(showLoading())
         return _saveQuestionAnswer({
@@ -57,7 +56,6 @@ export function handleAddQuestion(optionOne,optionTwo){
     // to get current state of our store
     return (dispatch, getState) => {
         const { authedUser } = getState();
-        const  { user } = getState();
         // lets show loading bar before we make an asynchronous call
         dispatch(showLoading())
         return _saveQuestion({
@@ -67,7 +65,10 @@ export function handleAddQuestion(optionOne,optionTwo){
         })
         // once savequestion resolves we need to send/dispatch another action for saving
         // then new quest to our state/store
-        .then((newQuest)=> dispatch(addQuestion(newQuest)))
+        .then((newQuest)=> {
+            dispatch(addQuestion(newQuest))
+            dispatch(addQuestionToUsers(newQuest))
+        })
         // once new question is added to state then hideloading UI
         .then(()=> dispatch(hideLoading()))
     }

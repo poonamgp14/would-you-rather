@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
-import { Link, withRouter } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
 
 class Question extends Component {

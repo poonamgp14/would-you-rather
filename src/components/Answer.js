@@ -54,8 +54,9 @@ class Answer extends Component {
                             <Form.Row>
                                 <Col>
                                 <select value={this.state.answer} onChange={this.handleChange}>
+                                    <option key="select">Select</option>
                                     {this.options.map((option) => (
-                                    <option value={option.value}>{option.label}</option>
+                                    <option value={option.value} key={option.label}>{option.label}</option>
                                     ))}
                                 </select>
                                 </Col>

@@ -4,12 +4,6 @@ import { Redirect } from 'react-router-dom'
 import { setAuthedUserToNull } from '../actions/authedUser';
 
 
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-
-
 class Logout extends Component{
     componentDidMount(){
         const { dispatch } = this.props;

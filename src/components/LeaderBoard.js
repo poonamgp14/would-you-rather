@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Question from './Question'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Nav from 'react-bootstrap/Nav'
 
 import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
@@ -22,7 +19,7 @@ class LeaderBoard extends Component {
                             <Card style={{ width: '50%' }}>
                                 <Card.Header>{this.props.users[id]['name']} asks</Card.Header>
                                 <Card.Body>
-                                    <Card.Title><Card.Img variant="top" src={this.props.users[id]['avatarURL']} /></Card.Title>
+                                    <Card.Title><Card.Img variant="top" src={this.props.users[id]['avatarURL']} width="100" height="100" /></Card.Title>
                                     <Card.Text>
                                     <Badge pill variant="primary">Answered &nbsp; {Object.keys(this.props.users[id].answers).length}</Badge>{' '}
                                     <Badge pill variant="success">Asks &nbsp; {Object.keys(this.props.users[id].questions).length}</Badge>
