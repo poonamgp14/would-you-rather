@@ -3,22 +3,29 @@ import { connect } from 'react-redux'
 import CardDeck from 'react-bootstrap/CardDeck'
 import Card from 'react-bootstrap/Card'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import Answer from './Answer'
 
 
 class QuestionPage extends Component{
 
     render(){
+        if (!this.props.question.hasOwnProperty('id')){
+            return <h2>No match found for the question {this.props.id}</h2>
+        }
         let totalVotes = this.props.question['optionOne']['votes'].length + this.props.question['optionTwo']['votes'].length;
         let optionOnePercent = (100 * this.props.question['optionOne']['votes'].length) / totalVotes;
         let optionTwoPercent = (100 * this.props.question['optionTwo']['votes'].length) / totalVotes;
-        console.log(optionOnePercent)
-        console.log(totalVotes)
+        if (this.props.ifAnswered === false){
+            return <Answer id={this.props.id}/>
+        }
         return  (
             <CardDeck>
                 <Card>
-                    <Card.Img variant="top" src={this.props.avatar} />
+                {/* <Card.Img variant="top" src={this.props.avatar} width="100" height="100" /> */}
+                    {/* <Card.Img variant="top" src={this.props.avatar} width="100" height="100"/> */}
                     <Card.Body>
-                    <Card.Title>{this.props.question.author} asked</Card.Title>
+                    <Card.Title><Card.Img variant="top" src={this.props.avatar} width="100" height="200" />
+                        {this.props.question.author} asked</Card.Title>
                     </Card.Body>
                 </Card>
                 <Card>
@@ -52,15 +59,15 @@ class QuestionPage extends Component{
     }
 }
 
-function mapStateToProps({questions, users}, props){
+function mapStateToProps({questions, users,authedUser}, props){
     const { id } = props.match.params;
-    console.log(questions[id])
     let avatar = users[questions[id]['author']]['avatarURL']
-    console.log(avatar)
 
     return {
         question: questions[id],
         avatar,
+        id,
+        ifAnswered: Object.keys(users[authedUser.id]['answers']).includes(id),
     }
 }
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import { setAuthedUser } from '../actions/authedUser';
 
 
@@ -13,10 +12,9 @@ import Col from 'react-bootstrap/Col'
 class Login extends Component{
     constructor(props){
         super(props);
-        this.state = {LoginUser: 'Select..', redirect: false}
+        this.state = {LoginUser: '', redirect: false}
     }
     handleChange = (e) => {
-        console.log(e.target.value)
         this.setState(()=> ({LoginUser : e.target.value}))
     };
 
@@ -25,20 +23,18 @@ class Login extends Component{
         const { dispatch } = this.props;
         dispatch(setAuthedUser(this.state.LoginUser))
         this.setState(() => ({
-            LoginUser : '',
-            redirect: true
+            LoginUser : ''
         }))
     }
+
     render(){
-        if (this.state.redirect === true){
-            return <Redirect to='/home' />
-        }
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Col>
                         <select value={this.state.LoginUser} onChange={this.handleChange}>
+                            <option key="select">Select</option>
                             {this.props.users.map((user) => (
                             <option value={user.id} key={user.id}>{user.name}</option>
                             ))}

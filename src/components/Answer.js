@@ -54,8 +54,9 @@ class Answer extends Component {
                             <Form.Row>
                                 <Col>
                                 <select value={this.state.answer} onChange={this.handleChange}>
+                                    <option key="select">Select</option>
                                     {this.options.map((option) => (
-                                    <option value={option.value}>{option.label}</option>
+                                    <option value={option.value} key={option.label}>{option.label}</option>
                                     ))}
                                 </select>
                                 </Col>
@@ -77,12 +78,11 @@ class Answer extends Component {
 }
 
 function mapStateToProps({authedUser, questions, users}, props){
-    const { id } = props.match.params;
 
     return {
-        id,
-        optionOneText : questions[id]['optionOne']['text'],
-        optionTwoText : questions[id]['optionTwo']['text'],
+        id: props.id,
+        optionOneText : questions[props.id]['optionOne']['text'],
+        optionTwoText : questions[props.id]['optionTwo']['text'],
     }
 }
 
