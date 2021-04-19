@@ -11,8 +11,7 @@ class Home extends Component {
     defaultType = 'unanswered';
     constructor(props) {
         super(props);
-        let unAnsweredQuestionIds = this.getQuestionIds(this.defaultType)
-        this.state = { questionType: this.defaultType, questionIds: unAnsweredQuestionIds };
+        this.state = { questionType: this.defaultType}
         this.handleSelect = this.handleSelect.bind(this);
       }
 
@@ -32,6 +31,7 @@ class Home extends Component {
     }
 
     render(){
+        let questionIds = this.getQuestionIds(this.state.questionType)
         return (
             <Container>
                 <Row className="d-flex justify-content-center"><h1>Questions</h1></Row>
@@ -46,7 +46,7 @@ class Home extends Component {
                     </Nav>
                 </Row>
                 <div className='questions-list'>
-                    {this.state.questionIds.map((id) => (
+                    {questionIds.map((id) => (
                         <Col key={id} className="d-flex justify-content-center">
                             <Question id = {id} type={this.state.questionType}/>
                         </Col>
