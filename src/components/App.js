@@ -12,6 +12,7 @@ import Answer from './Answer';
 import Login from './Login'
 import LeaderBoard from './LeaderBoard'
 import Logout from './Logout'
+import NotFound from './NotFound';
 
 class App extends Component {
   componentDidMount(){
@@ -31,11 +32,12 @@ class App extends Component {
                       <Switch>
                         <Route path="/home" component={Home}/>
                         <Route path="/question/:id" component={QuestionPage}/>
-                        <Route path="/new" component={NewQuestion}/>
+                        <Route path="/add" component={NewQuestion}/>
                         <Route path="/answer/:id/" component={Answer}/>
                         <Route path="/leaderboard" component={LeaderBoard}/>
                         <Route path="/logout" component={Logout}/>
                         <Redirect exact from="/" to="/home" />
+                        <Route component={NotFound} />
                         {/* <Redirect exact from="/new" to="/home" /> */}
                       </Switch>
                     </div>

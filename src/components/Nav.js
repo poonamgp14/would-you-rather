@@ -13,7 +13,7 @@ class NavBar extends Component {
               <Nav.Link as={NavLink} to='/home'>Home</Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
-              <Nav.Link as={NavLink} to='/new'>New Question</Nav.Link>
+              <Nav.Link as={NavLink} to='/add'>New Question</Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
               <Nav.Link as={NavLink} to='/leaderboard'>LeaderBoard</Nav.Link>
