@@ -4,13 +4,15 @@ import CardDeck from 'react-bootstrap/CardDeck'
 import Card from 'react-bootstrap/Card'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Answer from './Answer'
-
+import NotFound from './NotFound'
 
 class QuestionPage extends Component{
 
     render(){
-        if (!this.props.question.hasOwnProperty('id')){
-            return <h2>No match found for the question {this.props.id}</h2>
+        console.log(this.props)
+        if (this.props.question === undefined){
+            return <NotFound/>
+            // return <h2>No match found for the question {this.props.id}</h2>
         }
         let totalVotes = this.props.question['optionOne']['votes'].length + this.props.question['optionTwo']['votes'].length;
         let optionOnePercent = (100 * this.props.question['optionOne']['votes'].length) / totalVotes;
@@ -61,7 +63,10 @@ class QuestionPage extends Component{
 
 function mapStateToProps({questions, users,authedUser}, props){
     const { id } = props.match.params;
-    let avatar = users[questions[id]['author']]['avatarURL']
+    let avatar = '';
+    if (questions.hasOwnProperty(id)){
+        avatar = users[questions[id]['author']]['avatarURL']
+    }
 
     return {
         question: questions[id],
